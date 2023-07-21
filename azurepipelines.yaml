@@ -1,0 +1,17 @@
+pool: "Azure Pipelines"
+trigger:
+  - master
+stages: 
+  - stage: Buildstage
+    displayName: Ci
+    jobs: 
+      - job: mavenjob
+        displayName: gol
+        steps:
+          - task: Maven@3
+            inputs: 
+              mavenPOMFile: 'pom.xml'
+              goals: 'package'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              jdkVersionOption: '1.8'
